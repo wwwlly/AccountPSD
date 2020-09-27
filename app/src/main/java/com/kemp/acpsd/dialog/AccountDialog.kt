@@ -83,18 +83,18 @@ class AccountDialog(context: Context) : Dialog(context) {
 
         btnSave.text = "保存"
         btnSave.setOnClickListener {
-            clickSave(saveListener)
+            clickSave(null, saveListener)
         }
     }
 
-    fun setModifyContent(modifyListener: (Dialog, AccountPsd) -> Unit) {
+    fun setModifyContent(origin: AccountPsd, modifyListener: (Dialog, AccountPsd) -> Unit) {
         setEditAble(true)
 
         setUnifyAccount()
 
         btnSave.text = "保存"
         btnSave.setOnClickListener {
-            clickSave(modifyListener)
+            clickSave(origin, modifyListener)
         }
     }
 
@@ -109,7 +109,7 @@ class AccountDialog(context: Context) : Dialog(context) {
 
         btnSave.text = "修改"
         btnSave.setOnClickListener {
-            setModifyContent(modifyListener)
+            setModifyContent(accountPsd, modifyListener)
         }
     }
 
@@ -131,14 +131,14 @@ class AccountDialog(context: Context) : Dialog(context) {
         }
     }
 
-    private fun clickSave(listener: (Dialog, AccountPsd) -> Unit) {
+    private fun clickSave(origin: AccountPsd?, listener: (Dialog, AccountPsd) -> Unit) {
         val name = etName.text.toString()
         val account = etAccount.text.toString()
         val psd = etPsd.text.toString()
         val remarks = etRemarks.text.toString()
 
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(account) && !TextUtils.isEmpty(psd)) {
-            val data = AccountPsd()
+            val data = origin ?: AccountPsd()
             data.name = name
             data.account = account
             data.passWord = psd
