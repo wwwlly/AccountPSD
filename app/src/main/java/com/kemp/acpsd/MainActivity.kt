@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kemp.acpsd.adapter.MainAdapter
@@ -74,7 +75,8 @@ class MainActivity : AppCompatActivity() {
     private fun initListView(list: List<AccountPsd>) {
         recyclerView = findViewById(R.id.recycler_view)
 
-        val layoutManager = LinearLayoutManager(this)
+//        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = GridLayoutManager(this, 2)
         adapter = MainAdapter(this, list as ArrayList<AccountPsd>)
         adapter.setOnClickListener {
             showDetail(it)
